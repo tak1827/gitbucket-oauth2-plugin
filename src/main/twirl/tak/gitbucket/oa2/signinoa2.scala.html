@@ -1,0 +1,29 @@
+@(error: Option[Any] = None)(implicit context: gitbucket.core.controller.Context)
+@gitbucket.core.html.main("Sign in"){
+  <div class="content-wrapper main-center">
+    <div class="content body">
+      <div class="signin-form">
+        @context.settings.information.map { information =>
+          <div class="alert alert-info" style="background-color: white; color: #555; border-color: #4183c4; font-size: small; line-height: 120%;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            @Html(information)
+          </div>
+        }
+        @gitbucket.core.helper.html.error(error)
+        <div class="panel panel-default">
+          <div class="panel-heading strong">Sign in</div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <form action="@context.path/signin/oa2" method="POST">
+                <input type="hidden" name="hash"/>
+                <input type="submit" class="btn btn-success" value="Sign in with OAuth2.0"
+                onClick="this.form.hash.value = window.location.hash;"/>
+              </form>
+            </li>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+}

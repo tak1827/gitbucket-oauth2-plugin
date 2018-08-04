@@ -1,0 +1,86 @@
+@(oa2Authentication: Boolean,
+  issuer: String, 
+  authorizationEndpoint: String,
+  tokenEndpoint: String,
+  userinfoEndpoint: String,
+  clientId: String,
+  clientSecret: String,
+  info: Option[Any])(implicit context: gitbucket.core.controller.Context)
+@import context._
+@import gitbucket.core.html.main
+@import gitbucket.core.admin.html.menu
+@import gitbucket.core.helper.html.information
+@import gitbucket.core.view.helpers._
+@import gitbucket.core.util.Directory._
+@main("OAuth2.0"){
+@menu("OAuth2.0"){
+@information(info)
+<form action="@path/admin/oa2" method="POST" class="form-horizontal" validate="true" autocomplete="off">
+  <div class="tab-content fill-width" style="padding-top: 20px;">
+    <div class="tab-pane active">
+      <fieldset>
+        <label class="checkbox">
+          <input type="checkbox" id="oa2Authentication" name="oa2cAuthentication"@if(oa2Authentication){ checked} />
+          OAuth2.0
+        </label>
+      </fieldset>
+      <div class="oa2">
+        <div class="form-group">
+          <label class="control-label col-md-2" for="oa2Issuer">Issuer</label>
+          <div class="col-md-10">
+            <input type="text" id="oa2Issuer" name="issuer" class="form-control" value="@issuer"/>
+            <span id="error-issuer" class="error"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-md-2" for="oa2AuthorizationEndpoint">Authorization Endpoint</label>
+          <div class="col-md-10">
+            <input type="text" id="oa2AuthorizationEndpoint" name="authorizationEndpoint" class="form-control" value="@authorizationEndpoint"/>
+            <span id="error-authorizationEndpoint" class="error"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-md-2" for="oa2TokenEndpoint">Token Endpoint</label>
+          <div class="col-md-10">
+            <input type="text" id="oa2TokenEndpoint" name="tokenEndpoint" class="form-control" value="@tokenEndpoint"/>
+            <span id="error-tokenEndpoint" class="error"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-md-2" for="oa2UserinfoEndpoint">Userinfo Endpoint</label>
+          <div class="col-md-10">
+            <input type="text" id="oa2UserinfoEndpoint" name="userinfoEndpoint" class="form-control" value="@userinfoEndpoint"/>
+            <span id="error-oa2UserinfoEndpoint" class="error"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-md-2" for="oa2ClientId">Client ID</label>
+          <div class="col-md-10">
+            <input type="text" id="oa2ClientId" name="clientId" class="form-control" value="@clientId"/>
+            <span id="error-clientId" class="error"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-md-2" for="oa2ClientSecret">Client secret</label>
+          <div class="col-md-10">
+            <input type="password" id="oa2ClientSecret" name="clientSecret" class="form-control" value="@clientSecret" />
+            <span id="error-clientSecret" class="error"></span>
+          </div>
+        </div>
+      </div>
+      <hr/><br/>
+      <fieldset>
+        <input type="submit" class="btn btn-success" value="Apply changes"/>
+      </fieldset>
+    </div>
+  </div>
+</form>
+<script>
+$(function(){
+  $('#oa2Authentication').change(function(){
+    $('.oa2 input').prop('readonly', !$(this).prop('checked'));
+  }).change();
+});
+</script>
+}
+}

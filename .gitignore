@@ -23,3 +23,6 @@ project/plugins/project/
 # Ensime
 .ensime
 .ensime_cache/
+
+# Custom
+.DS_Store
